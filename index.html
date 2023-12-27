@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>Hello World!</title>
+
+</head>
+<body>
+
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    
+    body button:first-of-type {
+      display: block;
+    }
+    
+    body button:not(:first-of-type) {
+      position: fixed;
+    }
+    
+  </style>
+  
+  <button onclick="more()">More</button>
+  
+  
+<script>
+  
+  let button = document.querySelectorAll('button');
+
+  console.log(button);
+  
+  // random number
+  function getRandomNumberBetween(min,max) {
+    return Math.floor(Math.random()*(max-min+1)+min);
+  }
+
+  function more() {
+
+    var x = window.innerWidth;
+    var y = window.innerHeight;
+
+    // Create an "li" node:
+    const node = document.createElement("button");
+    node.setAttribute("onclick","more();");
+
+    // Create a text node:
+    const textnode = document.createTextNode("More");
+
+    // Append the text node to the "li" node:
+    node.appendChild(textnode);
+
+    // Append the "li" node to the list:
+    document.querySelector("body").appendChild(node);
+
+    node.style.left = (Math.random() * x + 0) + "px";
+    node.style.top = (Math.random() * y + 0) + "px";
+    
+    // rotate
+    // node.style.transform = "rotate(" + (Math.random() * y + 0) + "deg)";
+    
+
+  };
+  
+</script>
+</body>
+</html>
