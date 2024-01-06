@@ -1,16 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-
   <title>more</title>
-
-</head>
-<body>
-
   <style>
     body {
+      margin: 0;
+      padding: 0;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -26,12 +20,12 @@
     }
     
   </style>
-  
-  <button onclick="more()">More</button>
-  
-  
+</head>
+<body>
+
+<button onclick="more()">More</button>
+
 <script>
-  
   let button = document.querySelectorAll('button');
 
   console.log(button);
@@ -42,6 +36,13 @@
   }
 
   function more() {
+
+    var msg = new SpeechSynthesisUtterance();
+    msg.volume = 1; // From 0 to 1
+    msg.rate = 1.1; // From 0.1 to 10
+    msg.pitch = 0.9; // From 0 to 2
+    msg.text = "More";
+    speechSynthesis.speak(msg);
 
     var x = window.innerWidth;
     var y = window.innerHeight;
@@ -64,10 +65,7 @@
     
     // rotate
     // node.style.transform = "rotate(" + (Math.random() * y + 0) + "deg)";
-    
-
   };
-  
 </script>
 </body>
 </html>
