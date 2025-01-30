@@ -1,12 +1,25 @@
+<!--
+
+  888b     d888                          
+  8888b   d8888                          
+  88888b.d88888                          
+  888Y88888P888  .d88b.  888d888 .d88b.  
+  888 Y888P 888 d88""88b 888P"  d8P  Y8b 
+  888  Y8P  888 888  888 888    88888888 
+  888   "   888 Y88..88P 888    Y8b.     
+  888       888  "Y88P"  888     "Y8888  
+                                       
+-->
 <html>
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>more</title>
+  
   <style>
     :root {
       color-scheme: light dark;
+      touch-action: manipulation;
     }
-
+    
     body {
       margin: 0;
       padding: 0;
@@ -15,62 +28,114 @@
       align-items: center;
       height: 100vh;
     }
-    
-    body button:first-of-type {
-      display: block;
-    }
-    
-    body button:not(:first-of-type) {
+
+    button {
       position: fixed;
+      cursor: pointer;
+      left: calc(100vw * var(--random-x));
+      top: calc(100vh * var(--random-y));
+      rotate: var(--random-deg);
+      
+      animation: more .2s;
     }
     
+    @keyframes more {
+      from {
+        opacity: 0;
+        scale: 0;
+      }
+      
+      to {
+        opacity: 1;
+        scale: 1;
+      }
+    }
   </style>
 </head>
 <body>
 
-<button onclick="more()">More</button>
+  <button onclick="more()">More</button>
 
-<script>
-  let button = document.querySelectorAll('button');
+  <script>
+    let moreCount = 1;
 
-  console.log(button);
-  
-  // random number
-  function getRandomNumberBetween(min,max) {
-    return Math.floor(Math.random()*(max-min+1)+min);
-  }
+    const thresholds = {
+      first: { count: 7, spawn: 3 },
+      second: { count: 21, spawn: 5 },
+      third: { count: 50, spawn: 7 },
+      fourth: { count: 75, spawn: 10 }
+    };
 
-  function more() {
+    function more() {
+      let numToSpawn = 1;
 
-    var msg = new SpeechSynthesisUtterance();
-    msg.volume = 1; // From 0 to 1
-    msg.rate = 1.1; // From 0.1 to 10
-    msg.pitch = 0.9; // From 0 to 2
-    msg.text = "More";
-    speechSynthesis.speak(msg);
+      if (moreCount >= thresholds.fourth.count) {
+        
+        numToSpawn = thresholds.fourth.spawn;
+        speakMore("Way more");
+        
+      } else if (moreCount >= thresholds.third.count) {
+        
+        numToSpawn = thresholds.third.spawn;
+        speakMore("Much more");
+        
+      } else if (moreCount >= thresholds.second.count) {
+        
+        numToSpawn = thresholds.second.spawn;
+        speakMore("A lot more");
+        
+      } else if (moreCount >= thresholds.first.count) {
+        
+        numToSpawn = thresholds.first.spawn;
+        speakMore("Even more");
+        
+      } else {
+        speakMore("More");
+      }
 
-    var x = window.innerWidth;
-    var y = window.innerHeight;
+      for (let i = 0; i < numToSpawn; i++) {
+        spawnMore();
+      }
+    }
 
-    // Create an "li" node:
-    const node = document.createElement("button");
-    node.setAttribute("onclick","more();");
+    function spawnMore() {
+      const moreMore = document.createElement("button");
+      moreMore.innerText = "More";
+      moreMore.onclick = more;
 
-    // Create a text node:
-    const textnode = document.createTextNode("More");
+      const x = Math.random();
+      const y = Math.random();
+      const deg = Math.random().toFixed(1) * 360;
 
-    // Append the text node to the "li" node:
-    node.appendChild(textnode);
+      moreMore.style.setProperty("--random-x", x);
+      moreMore.style.setProperty("--random-y", y);
+      moreMore.style.setProperty("--random-deg", deg + "deg");
 
-    // Append the "li" node to the list:
-    document.querySelector("body").appendChild(node);
+      document.body.appendChild(moreMore);
+      moreCount++;
+    }
 
-    node.style.left = (Math.random() * x + 0) + "px";
-    node.style.top = (Math.random() * y + 0) + "px";
+    function speakMore(message) {
+
+      if (!message) return;
+
+      const synth = window.speechSynthesis;
+      const utterance = new SpeechSynthesisUtterance(message);
+
+      utterance.volume = 1;
+      utterance.rate = 1.2;
+      utterance.pitch = 0.9;
+
+      synth.speak(utterance);
+    }
     
-    // rotate
-    // node.style.transform = "rotate(" + (Math.random() * y + 0) + "deg)";
-  };
-</script>
+    (function titleScroller(text) {
+      document.title = text;
+      
+      setTimeout(function () {
+        titleScroller(text.substr(1) + text.substr(0, 1));
+      }, 500);
+    }("More • More • More • More • More • "));
+  </script>
 </body>
 </html>
