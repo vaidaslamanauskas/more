@@ -56,6 +56,7 @@
 
   <button onclick="more()">More</button>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.4/howler.min.js"></script>
   <script>
     let moreCount = 1;
 
@@ -72,25 +73,30 @@
       if (moreCount >= thresholds.fourth.count) {
         
         numToSpawn = thresholds.fourth.spawn;
-        speakMore("Way more");
+        // speakMore("Way more");
+        playAudio("Way more", "audio/Way-more.mp3");
         
       } else if (moreCount >= thresholds.third.count) {
         
         numToSpawn = thresholds.third.spawn;
-        speakMore("Much more");
+        // speakMore("Much more");
+        playAudio("Much more", "audio/Much-more.mp3");
         
       } else if (moreCount >= thresholds.second.count) {
         
         numToSpawn = thresholds.second.spawn;
-        speakMore("A lot more");
+        // speakMore("A lot more");
+        playAudio("A lot more", "audio/A-lot-more.mp3");
         
       } else if (moreCount >= thresholds.first.count) {
         
         numToSpawn = thresholds.first.spawn;
-        speakMore("Even more");
+        // speakMore("Even more");
+        playAudio("Even more", "audio/Even-more.mp3");
         
       } else {
-        speakMore("More");
+        // speakMore("More");
+        playAudio("More", "audio/More.mp3");
       }
 
       for (let i = 0; i < numToSpawn; i++) {
@@ -127,6 +133,21 @@
       utterance.pitch = 0.9;
 
       synth.speak(utterance);
+    }
+
+    const audioInstances = new Map();
+
+    function playAudio(id, src) {
+      // Check if the sound already exists, if not, create a new Howl instance
+      if (!audioInstances.has(id)) {
+        const audio = new Howl({
+        src: [src]
+      });
+        audioInstances.set(id, audio);
+      }
+
+      const audio = audioInstances.get(id);
+      audio.play();
     }
     
     (function titleScroller(text) {
