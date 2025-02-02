@@ -12,15 +12,21 @@
 -->
 <html>
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
   
   <style>
+    @font-face {
+      font-family: "Reddit Sans";
+      src: url("fonts/RedditSans-Medium.woff2") format("woff2");
+      font-display: swap;
+    }
+
     :root {
-      color-scheme: light dark;
       touch-action: manipulation;
     }
     
     body {
+      background-color: rgb(244 245 246);
       margin: 0;
       padding: 0;
       display: flex;
@@ -30,6 +36,21 @@
     }
 
     button {
+      appearance: none;
+
+      background-color: rgb(255 255 255);
+      border: 1px solid rgb(229 229 229);
+      border-radius: 666px;
+      box-shadow: rgb(229, 229, 229) 0px 2px 0px 0px;
+      color: rgb(0 0 0);
+
+      font-family: "Reddit Sans", sans-serif;
+      font-size: 19px;
+      line-height: 1;
+
+      padding-inline: 15px;
+      padding-block: 7px;
+
       position: fixed;
       cursor: pointer;
       left: calc(100vw * var(--random-x));
@@ -37,6 +58,23 @@
       rotate: var(--random-deg);
       
       animation: more .2s;
+      transition: translate .15s, box-shadow .15s;
+
+      outline: none;
+
+      -webkit-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+
+    button:hover {
+      box-shadow: rgb(229, 229, 229) 0px 4px 0px 0px;
+      translate: 0 -2px 0;
+    }
+
+    button:active {
+      box-shadow: rgb(229, 229, 229) 0px 0px 0px 0px;
+      translate: 0 2px 0;
     }
     
     @keyframes more {
