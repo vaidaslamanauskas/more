@@ -1,5 +1,13 @@
 <!--
 
+  Hej, 
+        are 
+              you lookin'
+                          for 
+                                ..more?..
+
+  – – – – – – – – – – – – – – – – – – – –
+
   888b     d888                          
   8888b   d8888                          
   88888b.d88888                          
@@ -13,12 +21,13 @@
 <html>
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+  <title>moremoremoremoremore.com</title>
   
   <style>
     @font-face {
       font-family: "Reddit Sans";
       src: url("fonts/RedditSans-Medium.woff2") format("woff2");
-      font-display: swap;
+      font-display: block;
     }
 
     :root {
@@ -45,11 +54,11 @@
       color: rgb(0 0 0);
 
       font-family: "Reddit Sans", sans-serif;
-      font-size: 19px;
+      font-size: 27px;
       line-height: 1;
 
-      padding-inline: 15px;
-      padding-block: 7px;
+      padding-inline: 16px;
+      padding-block: 10px;
 
       position: fixed;
       cursor: pointer;
@@ -99,10 +108,10 @@
     let moreCount = 1;
 
     const thresholds = {
-      first: { count: 7, spawn: 3 },
-      second: { count: 21, spawn: 5 },
-      third: { count: 50, spawn: 7 },
-      fourth: { count: 75, spawn: 10 }
+      first: { count: 5, spawn: 3 },
+      second: { count: 25, spawn: 5 },
+      third: { count: 75, spawn: 7 },
+      fourth: { count: 125, spawn: 10 }
     };
 
     function more() {
@@ -111,30 +120,25 @@
       if (moreCount >= thresholds.fourth.count) {
         
         numToSpawn = thresholds.fourth.spawn;
-        // speakMore("Way more");
-        playAudio("Way more", "audio/Way-more.mp3");
+        speakMore("Way more", "audio/Way-more.mp3");
         
       } else if (moreCount >= thresholds.third.count) {
         
         numToSpawn = thresholds.third.spawn;
-        // speakMore("Much more");
-        playAudio("Much more", "audio/Much-more.mp3");
+        speakMore("Much more", "audio/Much-more.mp3");
         
       } else if (moreCount >= thresholds.second.count) {
         
         numToSpawn = thresholds.second.spawn;
-        // speakMore("A lot more");
-        playAudio("A lot more", "audio/A-lot-more.mp3");
+        speakMore("A lot more", "audio/A-lot-more.mp3");
         
       } else if (moreCount >= thresholds.first.count) {
         
         numToSpawn = thresholds.first.spawn;
-        // speakMore("Even more");
-        playAudio("Even more", "audio/Even-more.mp3");
+        speakMore("Even more", "audio/Even-more.mp3");
         
       } else {
-        // speakMore("More");
-        playAudio("More", "audio/More.mp3");
+        speakMore("More", "audio/More.mp3");
       }
 
       for (let i = 0; i < numToSpawn; i++) {
@@ -159,23 +163,9 @@
       moreCount++;
     }
 
-    function speakMore(message) {
-
-      if (!message) return;
-
-      const synth = window.speechSynthesis;
-      const utterance = new SpeechSynthesisUtterance(message);
-
-      utterance.volume = 1;
-      utterance.rate = 1.2;
-      utterance.pitch = 0.9;
-
-      synth.speak(utterance);
-    }
-
     const audioInstances = new Map();
 
-    function playAudio(id, src) {
+    function speakMore(id, src) {
       // Check if the sound already exists, if not, create a new Howl instance
       if (!audioInstances.has(id)) {
         const audio = new Howl({
@@ -194,7 +184,7 @@
       setTimeout(function () {
         titleScroller(text.substr(1) + text.substr(0, 1));
       }, 500);
-    }("More • More • More • More • More • "));
+    }("More More More More More More "));
   </script>
 </body>
 </html>
